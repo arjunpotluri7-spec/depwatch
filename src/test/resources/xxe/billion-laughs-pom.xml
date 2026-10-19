@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- TEST FIXTURE: entity expansion ("billion laughs"). Must be rejected. -->
+<!DOCTYPE project [
+  <!ENTITY a "aaaaaaaaaa">
+  <!ENTITY b "&a;&a;&a;&a;&a;&a;&a;&a;&a;&a;">
+  <!ENTITY c "&b;&b;&b;&b;&b;&b;&b;&b;&b;&b;">
+  <!ENTITY d "&c;&c;&c;&c;&c;&c;&c;&c;&c;&c;">
+]>
+<project><artifactId>&d;</artifactId></project>

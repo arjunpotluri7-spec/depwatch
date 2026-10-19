@@ -1,0 +1,10 @@
+# SYNTHETIC SAMPLE. License data for inputs that carry none (pom.xml, gradle.lockfile).
+# Keys are group:artifact or group:artifact:version; values are SPDX expressions.
+com.example:logkit: Apache-2.0
+com.example:jsonmapper: Apache-2.0
+org.example:http-core: Apache-2.0
+org.example:cachebox: MIT
+com.example:widgets: BSD-3-Clause
+org.example:yamlite: Apache-2.0
+org.example:orders-api: Apache-2.0
+com.example:textutils: Apache-2.0

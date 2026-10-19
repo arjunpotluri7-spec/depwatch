@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.6.0",
+  "id": "DEMO-2026-0010",
+  "published": "2026-06-10T09:00:00Z",
+  "modified": "2026-06-10T09:00:00Z",
+  "summary": "Prototype pollution in example-merge (npm, not Maven)",
+  "details": "FICTIONAL ADVISORY FOR DEMONSTRATION ONLY. A non-Maven record, included to show that Depwatch counts and ignores other ecosystems.",
+  "affected": [
+    {
+      "package": { "ecosystem": "npm", "name": "example-merge" },
+      "ranges": [
+        { "type": "SEMVER", "events": [ { "introduced": "0" }, { "fixed": "2.0.1" } ] }
+      ]
+    }
+  ]
+}

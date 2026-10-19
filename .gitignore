@@ -1,0 +1,15 @@
+build/
+out/
+.gradle/
+.tools/
+*.class
+.idea/
+.vscode/
+*.iml
+.DS_Store
+# generated reports
+depwatch-report.*
+report.json
+report.sarif
+report.md
+*.sarif

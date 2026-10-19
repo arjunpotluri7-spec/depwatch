@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.6.0",
+  "id": "DEMO-2026-0005",
+  "aliases": ["DEMO-ALIAS-HTTPCORE-7"],
+  "published": "2026-03-15T09:00:00Z",
+  "modified": "2026-04-02T08:00:00Z",
+  "summary": "Request smuggling via ambiguous chunked encoding in http-core",
+  "details": "FICTIONAL ADVISORY FOR DEMONSTRATION ONLY. In this invented scenario, org.example:http-core accepts a malformed chunk-size line that a front proxy parses differently. No 4.x release is fixed; the first safe release is 5.1.2, so the smallest safe upgrade is a major-version change.",
+  "severity": [
+    { "type": "CVSS_V3", "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N" }
+  ],
+  "affected": [
+    {
+      "package": { "ecosystem": "Maven", "name": "org.example:http-core" },
+      "ranges": [
+        { "type": "ECOSYSTEM", "events": [ { "introduced": "0" }, { "fixed": "5.1.2" } ] }
+      ]
+    }
+  ],
+  "references": [
+    { "type": "ADVISORY", "url": "https://example.com/advisories/DEMO-2026-0005" }
+  ]
+}

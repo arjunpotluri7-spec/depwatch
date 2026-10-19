@@ -1,0 +1,170 @@
+# Maven version ordering cases: left, relation (< == >), right.
+# Each pair is checked in both directions (a < b implies b > a) and for equals/hashCode consistency.
+#
+# --- Maven POM reference, "Version Order Specification", "End Result Examples" ---
+# https://maven.apache.org/pom.html#version-order-specification
+1, <, 1.1
+1-snapshot, <, 1
+1, <, 1-sp
+1-foo2, <, 1-foo10
+1.foo, ==, 1-foo
+1-foo, <, 1-1
+1-1, <, 1.1
+1.ga, ==, 1-ga
+1-ga, ==, 1-0
+1-0, ==, 1.0
+1.0, ==, 1
+1-sp, >, 1-ga
+1-sp.1, >, 1-ga.1
+1-sp-1, <, 1-ga-1
+# The page also lists "1-ga-1" = "1-1", but Maven's ComparableVersion (checked against 3.9.16)
+# orders 1-ga-1 < 1-1: trimming "ga" leaves a nested sub-list. Depwatch follows the implementation.
+1-ga-1, <, 1-1
+1-a1, ==, 1-alpha-1
+#
+# --- Same page, "Splitting and Replacing Examples" ---
+1-1.foo-bar1baz-.1, ==, 1-1.foo-bar-1-baz-0.1
+#
+# --- Same page, trimming of trailing "null" values ---
+1.0.0, ==, 1
+1.ga, ==, 1
+1.final, ==, 1
+1., ==, 1
+1-, ==, 1
+1.0.0-foo.0.0, ==, 1-foo
+1.0.0-0.0.0, ==, 1
+#
+# --- Same page, qualifier order:
+# alpha < beta < milestone < rc = cr < snapshot < "" = final = ga = release < sp ---
+1-alpha, <, 1-beta
+1-beta, <, 1-milestone
+1-milestone, <, 1-rc
+1-rc, ==, 1-cr
+1-rc, <, 1-snapshot
+1-snapshot, <, 1
+1, ==, 1-final
+1, ==, 1-ga
+1, ==, 1-release
+1-release, <, 1-sp
+1-alpha, <, 1-sp
+# "alpha", "beta" and "milestone" may be shortened to a, b and m when directly followed by a number
+1-a1, ==, 1-alpha1
+1-b2, ==, 1-beta-2
+1-m3, ==, 1-milestone-3
+1a1, ==, 1-alpha-1
+1b2, ==, 1-beta-2
+1m3, ==, 1-milestone-3
+# ... but not otherwise: a bare "a" is an unknown qualifier, which sorts after sp
+1-a, >, 1-sp
+1-alpha, <, 1-a
+1.0-alpha, <, 1.0-a
+# Unknown qualifiers come after the known ones, in alphabetical order
+1-sp, <, 1-abc
+1-abc, <, 1-def
+1-xyz, <, 1-zzz
+# ".qualifier" = "-qualifier" < "-number" < ".number"
+1.rc, ==, 1-rc
+1-rc, <, 1-1
+1-1, <, 1.1
+1-sp, <, 1-1
+1-zzz, <, 1-1
+1.1, >, 1-sp
+#
+# --- Same page, note: 2.0-rc1 < 2.0, so [1.0,2.0) includes 2.0-rc1 ---
+2.0-rc1, <, 2.0
+2.0-rc1, >, 1.0
+#
+# --- ComparableVersion javadoc (maven-artifact, org.apache.maven.artifact.versioning):
+# "transition between characters and digits also constitutes a separator: 1.0alpha1 => [1, [alpha, 1]]",
+# qualifiers are case insensitive, "a hyphen usually precedes a qualifier, and is always less important
+# than something preceded with a dot" ---
+1.0alpha1, ==, 1.0-alpha-1
+1.0alpha1, ==, 1-alpha-1
+1x, ==, 1-x
+1.0x, ==, 1-x
+1.0.0x, ==, 1-x
+1cr, ==, 1rc
+1X, ==, 1x
+1A, ==, 1a
+1RC1, ==, 1rc1
+1Ga, ==, 1
+1GA, ==, 1
+1RELEASE, ==, 1
+1Final, ==, 1
+1FINAL, ==, 1
+1Cr, ==, 1Rc
+1m3, ==, 1Milestone3
+1.0-SNAPSHOT, ==, 1.0-snapshot
+#
+# --- Numeric components (natural order, padding with 0, leading zeros ignored) ---
+1, <, 2
+1.5, <, 2
+1, <, 2.5
+1.0, <, 1.1
+1.1, <, 1.2
+1.0.0, <, 1.1
+1.0.1, <, 1.1
+1.1, <, 1.2.0
+1.9, <, 1.10
+1.0.9, <, 1.0.10
+9, <, 10
+1.999, <, 2
+1.01, ==, 1.1
+1.010, ==, 1.10
+1.0.0.0.0, ==, 1
+1..1, ==, 1.0.1
+1.0.1, >, 1.0
+2.9.10.8, <, 2.10.0
+2.10.5, <, 2.10.5.1
+2.10.5.1, <, 2.10.6
+20190126.230843, <, 1234567890.12345
+1.12345678901234567889, <, 1.12345678901234567890
+1.123456789, <, 1.1234567890
+99999999999999999999, >, 9999999999
+#
+# --- Qualifiers with numbers and snapshots ---
+1.0-alpha-1, <, 1.0
+1.0-alpha-1, <, 1.0-alpha-2
+1.0-alpha-2, <, 1.0-alpha-10
+1.0-alpha-1, <, 1.0-beta-1
+1.0-beta-1, <, 1.0-SNAPSHOT
+1.0-SNAPSHOT, <, 1.0
+1.0-alpha-1-SNAPSHOT, <, 1.0-alpha-1
+1.0-rc1, <, 1.0-rc2
+1.0-rc2, <, 1.0-rc10
+1.0-M1, <, 1.0-RC1
+1.0-M9, <, 1.0-M10
+2.0-beta9, <, 2.0-beta10
+2.0-beta9, <, 2.0
+1.0.0-beta.2, <, 1.0.0-beta.11
+1.0.0-alpha, <, 1.0.0-alpha.1
+1.2.3-SNAPSHOT, <, 1.2.3
+1.2.3, <, 1.2.4-SNAPSHOT
+1.0.0.RC1, ==, 1.0.0-RC1
+1.0.0.RC1, <, 1.0.0
+#
+# --- Hyphen versus dot, and build numbers ---
+1.0, <, 1.0-1
+1.0-1, <, 1.0-2
+1.0.0, <, 1.0-1
+2.0-1, <, 2.0.1
+1-0-0, ==, 1
+1-0.1, <, 1.0.1
+2.0.1-klm, <, 2.0.1-lmn
+2.0.1, <, 2.0.1-xyz
+2.0.1, <, 2.0.1-123
+2.0.1-xyz, <, 2.0.1-123
+# Trailing zeros inside a sub-list are null too, so "1-0.alpha" < "1" (MNG-6964 behavior)
+1-0.alpha, <, 1
+1-0.beta, <, 1
+1-0.alpha, <, 1-0.beta
+#
+# --- Release-candidate spellings seen in the wild ---
+1.0.Final, ==, 1.0
+1.0.GA, ==, 1
+1.0.RELEASE, ==, 1.0
+5.3.0.RELEASE, <, 5.3.1.RELEASE
+5.3.0.RC2, <, 5.3.0.RELEASE
+1.0.0-CR1, ==, 1.0.0-RC1
+4.1.0.Beta1, <, 4.1.0.CR1
+4.1.0.CR1, <, 4.1.0.Final

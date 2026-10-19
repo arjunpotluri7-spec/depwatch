@@ -1,0 +1,106 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:00000000-0000-4000-8000-000000000001",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-10-01T12:00:00Z",
+    "component": {
+      "type": "application",
+      "name": "billing-portal",
+      "version": "1.0.0",
+      "purl": "pkg:maven/org.example/billing-portal@1.0.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "group": "com.example",
+      "name": "logkit",
+      "version": "2.14.1",
+      "purl": "pkg:maven/com.example/logkit@2.14.1?type=jar",
+      "licenses": [ { "license": { "id": "Apache-2.0" } } ]
+    },
+    {
+      "type": "library",
+      "group": "com.example",
+      "name": "jsonmapper",
+      "version": "2.10.5.1",
+      "purl": "pkg:maven/com.example/jsonmapper@2.10.5.1",
+      "licenses": [ { "license": { "id": "Apache-2.0" } } ]
+    },
+    {
+      "type": "library",
+      "group": "org.example",
+      "name": "gpl-widget",
+      "version": "1.0.0",
+      "purl": "pkg:maven/org.example/gpl-widget@1.0.0",
+      "licenses": [ { "license": { "id": "GPL-3.0-only" } } ]
+    },
+    {
+      "type": "library",
+      "group": "org.example",
+      "name": "dual-licensed",
+      "version": "4.2",
+      "purl": "pkg:maven/org.example/dual-licensed@4.2",
+      "licenses": [ { "expression": "MIT OR GPL-3.0-only" } ]
+    },
+    {
+      "type": "library",
+      "group": "org.example",
+      "name": "weak-copyleft",
+      "version": "2.1",
+      "purl": "pkg:maven/org.example/weak-copyleft@2.1",
+      "licenses": [ { "license": { "id": "LGPL-2.1-only" } } ]
+    },
+    {
+      "type": "library",
+      "group": "org.example",
+      "name": "legacy-parser",
+      "version": "1.2",
+      "purl": "pkg:maven/org.example/legacy-parser@1.2",
+      "licenses": [ { "license": { "id": "GPL-2.0-only" } } ]
+    },
+    {
+      "type": "library",
+      "group": "org.example",
+      "name": "mystery-lib",
+      "version": "0.3",
+      "purl": "pkg:maven/org.example/mystery-lib@0.3"
+    },
+    {
+      "type": "library",
+      "group": "org.example",
+      "name": "http-core",
+      "version": "4.5.13",
+      "purl": "pkg:maven/org.example/http-core@4.5.13",
+      "licenses": [ { "license": { "id": "Apache-2.0" } } ],
+      "components": [
+        {
+          "type": "library",
+          "group": "org.example",
+          "name": "http-codec",
+          "version": "1.15",
+          "purl": "pkg:maven/org.example/http-codec@1.15",
+          "licenses": [ { "license": { "id": "Apache-2.0" } } ]
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "com.example",
+      "name": "textutils",
+      "version": "1.10.1",
+      "scope": "excluded",
+      "purl": "pkg:maven/com.example/textutils@1.10.1",
+      "licenses": [ { "license": { "id": "Apache-2.0" } } ]
+    },
+    {
+      "type": "library",
+      "name": "example-merge",
+      "version": "2.0.0",
+      "purl": "pkg:npm/example-merge@2.0.0",
+      "licenses": [ { "license": { "id": "MIT" } } ]
+    }
+  ]
+}

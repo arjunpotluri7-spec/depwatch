@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gradle/actions/wrapper-validation@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+      - name: Build (Spotless check, compile with -Xlint:all -Werror, tests)
+        run: ./gradlew build --no-daemon
+      - name: Install CLI
+        run: ./gradlew installDist --no-daemon
+
+      - name: Smoke test against samples (exit 1 = findings, expected)
+        shell: bash
+        run: |
+          bin=build/install/depwatch/bin/depwatch
+          set +e
+          $bin scan samples/maven-app/pom.xml samples/gradle-app/gradle.lockfile \
+            samples/sbom/app.cdx.json --db samples/osv-db --config config.example.yaml
+          code=$?
+          set -e
+          test "$code" -eq 1
+          $bin scan samples/sbom/app.cdx.json --db samples/osv-db --format sarif \
+            --fail-on none > /dev/null
+          $bin scan samples/maven-app/pom.xml --db samples/osv-db --format json \
+            --fail-on none > /dev/null
+          set +e
+          $bin explain com.example:logkit:2.14.1 --db samples/osv-db
+          test $? -eq 1
+          set -e
+          $bin version compare 1.0 1.0.0
+          $bin version in-range 2.0-rc1 '[1.0,2.0)'
+          $bin db stats --db samples/osv-db
+          # The XXE fixture must be rejected with exit code 2.
+          set +e
+          $bin scan src/test/resources/xxe/malicious-external-entity-pom.xml --db samples/osv-db
+          test $? -eq 2

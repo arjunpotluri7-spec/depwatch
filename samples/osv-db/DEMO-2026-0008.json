@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.6.0",
+  "id": "DEMO-2026-0008",
+  "published": "2026-05-05T09:00:00Z",
+  "modified": "2026-05-05T09:00:00Z",
+  "summary": "Cache key collision in cachebox can return another user's entry",
+  "details": "FICTIONAL ADVISORY FOR DEMONSTRATION ONLY. In this invented scenario, org.example:cachebox 3.0.0 through 3.2.0 build cache keys from a truncated hash. Severity comes from database_specific.severity because the record has no CVSS vector.",
+  "database_specific": { "severity": "HIGH" },
+  "affected": [
+    {
+      "package": { "ecosystem": "Maven", "name": "org.example:cachebox" },
+      "ranges": [
+        { "type": "ECOSYSTEM", "events": [ { "introduced": "3.0.0" }, { "fixed": "3.2.1" } ] }
+      ]
+    }
+  ]
+}

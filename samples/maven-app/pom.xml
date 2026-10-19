@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SYNTHETIC SAMPLE. Every dependency below is fictional (com.example / org.example). -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- Recorded but not resolved: Depwatch never downloads a parent POM. -->
+  <parent>
+    <groupId>org.example</groupId>
+    <artifactId>example-parent</artifactId>
+    <version>1.4.0</version>
+  </parent>
+
+  <artifactId>orders-service</artifactId>
+  <version>${revision}</version>
+  <packaging>jar</packaging>
+
+  <properties>
+    <revision>3.2.0</revision>
+    <logkit.version>2.14.1</logkit.version>
+    <jsonmapper.version>2.10.1</jsonmapper.version>
+    <http.line>4.5</http.line>
+    <httpcore.version>${http.line}.13</httpcore.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.example</groupId>
+        <artifactId>jsonmapper</artifactId>
+        <version>${jsonmapper.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>cachebox</artifactId>
+        <version>3.2.1</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.example</groupId>
+      <artifactId>logkit</artifactId>
+      <version>${logkit.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.example</groupId>
+      <artifactId>jsonmapper</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.example</groupId>
+      <artifactId>http-core</artifactId>
+      <version>${httpcore.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.example</groupId>
+      <artifactId>cachebox</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.example</groupId>
+      <artifactId>widgets</artifactId>
+      <version>1.0-rc1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.example</groupId>
+      <artifactId>yamlite</artifactId>
+      <version>1.30</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>orders-api</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.example</groupId>
+      <artifactId>textutils</artifactId>
+      <version>1.10.0</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

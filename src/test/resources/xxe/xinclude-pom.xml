@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- TEST FIXTURE: XInclude must not be processed; the element is just an unknown element. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <groupId>org.example</groupId>
+  <artifactId>xinclude-demo</artifactId>
+  <version>1.0</version>
+  <dependencies>
+    <xi:include href="file:///etc/passwd" parse="text"/>
+  </dependencies>
+</project>

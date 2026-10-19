@@ -1,0 +1,23 @@
+# Depwatch configuration example. No secrets belong in this file.
+# Validated strictly: unknown keys are errors, and every exception and suppression
+# must give a reason.
+
+licenses:
+  # SPDX identifiers, matched case-insensitively.
+  allowed: [Apache-2.0, MIT, BSD-2-Clause, BSD-3-Clause, ISC, EPL-2.0]
+  review_required: [LGPL-2.1-only, LGPL-2.1-or-later, MPL-2.0, EPL-1.0]
+  denied: [GPL-2.0-only, GPL-3.0-only, AGPL-3.0-only, SSPL-1.0]
+
+# Per-package license exceptions. `license` is optional; without it the package
+# is accepted whatever its license. `reason` is required.
+exceptions:
+  - package: org.example:legacy-parser
+    license: GPL-2.0-only
+    reason: "Used only by the internal migration tool, which is never distributed (ticket EX-1042)."
+
+# Accepted advisories. They stay in reports, marked suppressed, and do not affect
+# the exit code. `package` is optional. `reason` is required.
+suppressions:
+  - advisory: DEMO-2026-0006
+    package: com.example:textutils
+    reason: "Test-only dependency; the vulnerable word-wrap code path is never called."

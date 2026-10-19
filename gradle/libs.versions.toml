@@ -1,0 +1,23 @@
+# Every version is exact and was checked against Maven Central / the Gradle Plugin Portal.
+# google-java-format is held at 1.28.0: 1.29.0, 1.31.0, 1.34.1 and 1.37.0 failed to run on JDK 17 here.
+[versions]
+picocli = "4.7.7"
+jackson = "2.22.4"
+snakeyaml = "2.7"
+junit = "5.14.4"
+junit-platform = "1.14.4"
+assertj = "3.27.7"
+google-java-format = "1.28.0"
+spotless = "8.10.4"
+
+[libraries]
+picocli = { module = "info.picocli:picocli", version.ref = "picocli" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "snakeyaml" }
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+
+[plugins]
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }

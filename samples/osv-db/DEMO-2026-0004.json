@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.6.0",
+  "id": "DEMO-2026-0004",
+  "published": "2026-03-01T09:00:00Z",
+  "modified": "2026-03-01T09:00:00Z",
+  "summary": "Unbounded alias expansion in yamlite can exhaust memory",
+  "details": "FICTIONAL ADVISORY FOR DEMONSTRATION ONLY. In this invented scenario, org.example:yamlite expands YAML aliases without a limit. The maintainers have not released a fix yet, so the record uses last_affected: every version up to and including 1.33 is affected and no fixed version is named.",
+  "database_specific": { "severity": "MODERATE" },
+  "affected": [
+    {
+      "package": { "ecosystem": "Maven", "name": "org.example:yamlite" },
+      "ranges": [
+        { "type": "ECOSYSTEM", "events": [ { "introduced": "0" }, { "last_affected": "1.33" } ] }
+      ]
+    }
+  ],
+  "references": [
+    { "type": "REPORT", "url": "https://example.org/yamlite/issues/1201" }
+  ]
+}

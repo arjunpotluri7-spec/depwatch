@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.6.0",
+  "id": "DEMO-2026-0006",
+  "published": "2026-04-10T09:00:00Z",
+  "modified": "2026-04-10T09:00:00Z",
+  "summary": "Regular-expression backtracking in textutils word wrapping",
+  "details": "FICTIONAL ADVISORY FOR DEMONSTRATION ONLY. In this invented scenario, specific releases of com.example:textutils use a pattern with catastrophic backtracking. The record enumerates the affected versions explicitly instead of giving a range.",
+  "severity": [
+    { "type": "CVSS_V3", "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L" }
+  ],
+  "affected": [
+    {
+      "package": { "ecosystem": "Maven", "name": "com.example:textutils" },
+      "versions": ["1.9", "1.10", "1.10.1"]
+    }
+  ],
+  "references": [
+    { "type": "WEB", "url": "https://example.net/textutils/security" }
+  ]
+}
